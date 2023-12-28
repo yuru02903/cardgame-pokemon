@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="./bootstrap/css/bootstrap.css">
+  <style>
+
+    * {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      font-weight: bolder;
+    }
+
+    body {
+      background-image: url(./background.jpg);
+      background-repeat: no-repeat;
+      background-size: cover;
+    } 
+
+    p, span {
+      font-size: 20px;
+      padding: 0 1rem;
+    }
+
+    h1 {
+      font-weight: bolder;
+      margin-top: 8vh;
+      margin-bottom: 2rem;
+    }
+    
+    #introduction {
+      padding-top: 2rem;
+      box-sizing: border-box;
+      margin: auto;
+      text-align: center;
+    }
+
+    #introduction p {
+      line-height: 2rem;
+    }
+
+    #example {
+      width: 400px;
+      margin: auto;
+      text-align: center;
+    }
+
+    .hint{
+      width: 200px;
+      display: inline-block;
+      padding: 2px;
+      border-radius: 5px;
+      background: #ddd;
+      margin: auto;
+      margin-top: 1rem;
+      text-align: center;
+      position: relative;
+    }
+
+    #exampleCard {
+      width: calc(32vh + 40px);
+      margin: auto;
+      margin-top: 1rem;
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+    }
+
+    #next {
+      font-weight: bolder;
+      margin-top: 1rem;
+      padding: 5px 10px;
+      border-radius: 5px;
+      background: #FFF;
+      color: gray;
+      border: 2px solid gray;
+    }
+
+    #choosePage {
+      padding-top: 2rem;
+      box-sizing: border-box;
+      margin: auto;
+      text-align: center;
+    }
+
+    #choosePage #intro {
+      width: 400px;
+      margin: auto;
+      text-align: left;
+      font-weight: bolder;
+    }
+
+    #mode {
+      padding: 1rem 0;
+      margin: auto;
+      text-align: center;
+    }
+    #start {
+      margin-top: 1rem;
+      padding: 5px 10px;
+      border-radius: 5px;
+      background: red;
+      color: #FFF;
+      border: 1px solid #FFF;
+    }
+
+    #game {
+      margin: auto;
+      padding-top: 8vh;
+    }
+
+    #cards {
+      margin: auto;
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      width: calc(96vh + 120px);
+    }
+
+    .card {
+      box-sizing: border-box;
+      width: 16vh;
+      height: 24vh;
+      position: relative;
+      margin: 10px;
+      border-radius: 0.5rem;
+      transform-style: preserve-3d;
+      transition: transform 1s;
+      background-image: linear-gradient(to left bottom,#ddd,white,#ddd);
+    }
+
+    .card-front {
+      box-sizing: border-box;
+      width: 16vh;
+      height: 24vh;
+      background-image: linear-gradient(to right bottom,yellow,white,yellow);
+      background-size: 16vh;
+      background-repeat: no-repeat;
+      background-position: center;
+      position: absolute;
+      backface-visibility: hidden;
+      border-radius: 0.5rem;
+      border: 3px solid #888;
+      box-shadow: 5px 5px 15px #888;
+    }
+
+    .card-back {
+      box-sizing: border-box;
+      width: 16vh;
+      height: 24vh;
+      background-image: url(./pokeball.png);
+      background-size: 8vh;
+      background-repeat: no-repeat;
+      background-position: center;
+      position: absolute;
+      transform: rotateY(180deg);
+      backface-visibility: hidden;
+      border-radius: 0.5rem;
+      border: 3px solid #888;
+      box-shadow: 5px 5px 15px #888;
+    }
+
+    .card-close {
+      transform: rotateY(180deg);
+    }
+
+    .pokemon {
+      position: relative;
+      top: 4vh;
+      width: 100%;
+      /* height: 100%; */
+      object-fit: cover;
+      transition-duration: 1.5s
+    }
+
+    .brightness0 {
+      filter: brightness(0);
+    }
+
+    .hidden {
+      display: none;
+    }
+    .show {
+      display: block;
+    }
+
+  </style>
+</head>
+<body>
+  <div id="introduction">
+    <h1>我是誰?&nbsp; &nbsp;Pokémon!</h1>
+    <p>Hi 訓練家!你對Pokémon御三家熟悉嗎？
+      <br>
+      請配對相同卡牌，並試著透過剪影認出他們吧!
+    </p>
+    <div id="example">
+      <p class="hint">
+        請點擊翻開卡牌
+      </p>
+      <div id="exampleCard">
+        <div class="card card-close">
+          <div class="card-front">
+            <img class="pokemon brightness0" src="./皮卡丘.png">
+          </div>
+          <div class="card-back"></div>
+        </div>
+        <div class="card card-close">
+          <div class="card-front">
+            <img class="pokemon brightness0" src="./皮卡丘.png">
+          </div>
+          <div class="card-back"></div>
+        </div>
+      </div>
+    </div>
+    <button id="next">Next</button>
+  </div>
+  <div id="choosePage">
+    <div id="intro">
+      <h1>遊戲介紹：</h1>
+      <p>
+        ● 請選擇卡牌屬性，並按下 Start 鍵
+      </p>
+      <p>
+        ● 點擊卡牌翻開，並配對相同剪影卡牌，全部配對完成即可通關。
+      </p>
+    </div>
+    <p class="hint">
+      請選擇卡牌屬性
+    </p>
+    <div id="mode">
+      <form>
+        <input type="radio" name="three" value="火" id="fire" class="three chosen" checked><label for="fire"><span>火</span></label>
+        <input type="radio" name="three" value="水" id="water" class="three"><label for="water"><span>水</span></label>
+        <input type="radio" name="three" value="草" id="grass" class="three"><label for="grass"><span>草</span></label>
+      </form>
+    </div>
+    <button id="start">Start!</button>
+  </div>
+  <div id="game" class="hidden">
+    <div id="cards">
+    </div>
+  </div>
+
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js' integrity='sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==' crossorigin='anonymous'></script>
+  <script src="./bootstrap/js/bootstrap.bundle.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script>
+    
+    $('#choosePage').addClass('hidden')
+
+    $('#example').on('click', '.card',function() {
+      $(this).removeClass('card-close')
+      if ($('.card:not(.card-close)').length === 2) {
+        $('.card:not(.card-close)').addClass('card-ok')
+        $('.pokemon').removeClass('brightness0')
+        $('#introduction').append(`
+          <div class="modal" tabindex="-1">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title">0025-皮卡丘</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <p>屬性：電</p>
+                  <p>型態：皮丘 => 皮卡丘 => 雷丘</p>
+                  <img style="width: 100px" src="./皮丘.png"><span> => </span>
+                  <img style="width: 100px" src="./皮卡丘.png"><span> => </span>
+                  <img style="width: 100px" src="./雷丘.png">
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          `)
+        setTimeout( function () {
+          $('.modal').addClass('show')
+        }, 1000)
+        $('.modal').on('click',function() {
+          $('.modal').removeClass('show')
+          $('.modal').addClass('hidden')
+        })
+      }
+    })
+
+
+
+    $('#next').on('click',function() {
+      $('#introduction').addClass('hidden')
+      $('#choosePage').removeClass('hidden')
+      $('#exampleCard').empty()
+    })
+
+    $('#mode').on('click', '.three' , function () {
+      $('.three').removeClass("chosen")
+      $(this).addClass("chosen")
+    })
+
+    $('#start').on('click',function() {
+      $('#choosePage').addClass('hidden')
+      $('#game').removeClass('hidden')
+      $('#game').addClass('show')
+
+      for (let i = 0; i < 18; i++) {
+        $('#cards').append(`
+          <div class="card card-close">
+            <div class="card-front">
+              <img class="pokemon brightness0" src="./皮卡丘.png">
+            </div>
+            <div class="card-back"></div>
+          </div>
+        `)
+      }
+
+      $('.card').each(function (index, card) {
+        const number = index % 9 + 1
+        console.log(index, number)
+          
+          if ($('#fire').hasClass("chosen") == true) {
+            $(card).find('.card-front').css('background-image', `linear-gradient(to right bottom,rgb(255, 195, 85),white,rgb(255, 195, 85))`)
+            $(card).find('.card-front').css('border', `3px solid rgb(230, 160, 0)`)
+            $(card).find('.pokemon').attr('src', `./fire1/fire${number}.png`)
+          } else if ($('#water').hasClass("chosen") == true) {
+            $(card).find('.card-front').css('background-image', `linear-gradient(to right bottom,lightskyblue,white,lightskyblue`)
+            $(card).find('.card-front').css('border', `3px solid rgb(100, 170, 210)`)
+            $(card).find('.pokemon').attr('src', `./water1/water${number}.png`)
+          } else if ($('#grass').hasClass("chosen") == true) {
+            $(card).find('.card-front').css('background-image', `linear-gradient(to right bottom,lightgreen,white,lightgreen`)
+            $(card).find('.card-front').css('border', `3px solid rgb(75, 190, 75)`)
+            $(card).find('.pokemon').attr('src', `./grass1/grass${number}.png`)
+          }
+
+        $(this).attr('data-number', number)
+      })
+      for(let i = 0; i < 40; i++) {
+        const randomA = Math.round(Math.random() * 17)
+        const randomB = Math.round(Math.random() * 17)
+        $('.card').eq(randomA).insertAfter($('.card').eq(randomB))
+      }
+    })
+
+
+    $('#cards').on('click', '.card',function(index, card) {
+      if(
+        $('.card:not(.card-close)').length < 2 &&
+        $(this).hasClass('card-close') &&
+        !$(this).hasClass('card-ok')
+      ) {
+        $(this).removeClass('card-close')
+      }
+
+      if ($('.card:not(.card-close)').length === 2) {
+        if (
+          $('.card:not(.card-close)').eq(0).attr('data-number') ===
+          $('.card:not(.card-close)').eq(1).attr('data-number')
+        ) {
+          $('.card:not(.card-close)').addClass('card-ok')
+          $('.card:not(.card-close)').find('.pokemon').removeClass('brightness0')
+          setTimeout( function () {
+            $('.card:not(.card-close)').fadeTo(1000, 0)
+          }, 1200)
+          setTimeout( function () {
+            $('.card:not(.card-close)').addClass('card-close')
+          }, 2000)
+
+        } else {
+          setTimeout( function () {
+            $('.card:not(.card-close)').addClass('card-close')
+          }, 1000)
+        }
+        setTimeout( function () {
+          if ($('.card-ok').length === $('.card').length) {
+            Swal.fire({
+              title: `恭喜你完成<br>御三家Pokémon配對!`,
+              showDenyButton: true,
+              showCancelButton: false,
+              confirmButtonText: "再玩一次",
+              denyButtonText: `結束遊戲`
+            }).then((result) => {
+              /* Read more about isConfirmed, isDenied below */
+              if (result.isConfirmed) {
+                $('#choosePage').removeClass('hidden')
+                $('#game').removeClass('show')
+                $('#game').addClass('hidden')
+                $('#cards').empty()
+              } else if (result.isDenied) {
+                Swal.fire({
+                  title: "謝謝您的遊玩",
+                });
+              }
+            });
+          }
+        }, 2000)
+      }
+    })
+  </script>
+</body>
+</html>
